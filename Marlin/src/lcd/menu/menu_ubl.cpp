@@ -188,7 +188,7 @@ void _lcd_ubl_edit_mesh() {
    */
   void _lcd_ubl_validate_custom_mesh() {
     char ubl_lcd_gcode[20];
-    sprintf_P(ubl_lcd_gcode, PSTR("G28\nG26CPH%" PRIi16 TERN_(HAS_HEATED_BED, "B%" PRIi16))
+    sprintf_P(ubl_lcd_gcode, PSTR("G28\nG26 C P10 H%" PRIi16 TERN_(HAS_HEATED_BED, "B%" PRIi16))
       , custom_hotend_temp
       #if HAS_HEATED_BED
         , custom_bed_temp
@@ -211,7 +211,7 @@ void _lcd_ubl_edit_mesh() {
     #if PREHEAT_COUNT
       #if HAS_HEATED_BED
         #define VALIDATE_MESH_GCODE_ITEM(M) \
-          GCODES_ITEM_N_S(M, ui.get_preheat_label(M), MSG_UBL_VALIDATE_MESH_M, PSTR("G28\nG26CPI" STRINGIFY(M)))
+          GCODES_ITEM_N_S(M, ui.get_preheat_label(M), MSG_UBL_VALIDATE_MESH_M, PSTR("G28\nG26 C P10 I" STRINGIFY(M)))
       #else
         #define VALIDATE_MESH_GCODE_ITEM(M) \
           GCODES_ITEM_N_S(M, ui.get_preheat_label(M), MSG_UBL_VALIDATE_MESH_M, PSTR("G28\nG26CPB0I" STRINGIFY(M)))

@@ -54,7 +54,7 @@
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2KB
 #endif
 
-#define SPI_DEVICE                             2
+#define ENABLE_SPI2
 
 //
 // Servos
@@ -88,9 +88,30 @@
 #define E0_STEP_PIN                         PD6
 #define E0_DIR_PIN                          PD3
 
-#define E1_ENABLE_PIN                       PA3
-#define E1_STEP_PIN                         PA6
-#define E1_DIR_PIN                          PA1
+// for UART
+#if HAS_TMC220x
+  #define TMC_BAUD_RATE 19200
+  #if AXIS_IS_TMC(X)   
+    #define X_SERIAL_TX_PIN                    PA6
+    #define X_SERIAL_RX_PIN                    PA3
+  #endif
+  #if AXIS_IS_TMC(Y)
+    #define Y_SERIAL_TX_PIN                    PA6
+    #define Y_SERIAL_RX_PIN                    PA3
+  #endif
+  #if AXIS_IS_TMC(Z)
+    #define Z_SERIAL_TX_PIN                    PA6
+    #define Z_SERIAL_RX_PIN                    PA3
+  #endif
+  #if AXIS_IS_TMC(E0)
+    #define E0_SERIAL_TX_PIN                   PA6
+    #define E0_SERIAL_RX_PIN                   PA3
+  #endif    
+#else
+  #define E1_ENABLE_PIN                       PA3
+  #define E1_STEP_PIN                         PA6
+  #define E1_DIR_PIN                          PA1
+#endif
 
 //
 // Temperature Sensors
